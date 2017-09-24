@@ -1,6 +1,6 @@
 const express = require('express');
 
-const PORT = 5001; //Implement dynamic port binding for deploying to heroku
+const PORT = process.env.PORT || 5001;
 const app = express();
 
 app.get('/', (req, res) => {
