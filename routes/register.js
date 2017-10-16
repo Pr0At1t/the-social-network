@@ -1,11 +1,19 @@
 var UserRegister = require('../models/register');
+var bodyParser = require('body-parser');
 
 module.exports = app => {
-    app.post('/login', (req, res) => {
+    app.use(bodyParser.json()); // to support JSON-encoded bodies
+    app.use(
+        bodyParser.urlencoded({
+            // to support URL-encoded bodies
+            extended: true
+        })
+    );
+
+    app.post('/login', function(req, res) {
         var email = req.body.email;
         var password = req.body.password;
-        UserRegister.findOne({ email, password }),
-        (err, user) => {
+        UserRegister.findOne({ email, password }, (err, user) => {
             if (err) {
                 console.log(err);
                 return res.status(500).send();
@@ -13,8 +21,8 @@ module.exports = app => {
             if (!user) {
                 return res.status(404).send();
             }
-            return res.status(200).send();
-        };
+            return res.status(200).send(user);
+        });
     });
 
     app.post('/register', (req, res) => {
