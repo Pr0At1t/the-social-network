@@ -1,0 +1,2 @@
+/* Used once the client request specific data from the database.
+ Requests models for that information */
