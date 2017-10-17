@@ -22,7 +22,6 @@
       "express-validator": "^4.2.1",
       "jest-cli": "^21.2.1",
       "mongoose": "^4.11.13",
-      "node-mailer": "^0.1.1",
       "nodemailer": "^4.2.0",
       "passport": "^0.4.0",
       "passport-google-oauth20": "^1.0.0"
