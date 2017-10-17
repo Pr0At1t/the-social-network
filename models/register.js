@@ -16,16 +16,4 @@ var registerSchema = new Schema(
     { collection: 'registeredUser' }
 );
 
-export default {
-    comparePassword(email, password) {
-        registerSchema.findOne({ email, password }, err => {
-            if (err) {
-                console.log(err);
-            } else {
-                return true;
-            }
-        });
-    }
-};
-
 module.exports = mongoose.model('UserRegister', registerSchema);

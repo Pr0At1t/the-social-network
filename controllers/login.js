@@ -24,7 +24,7 @@ module.exports = {
                     msg: `The email address ${email} is not associated with any account. Double-check your email address and try again`
                 });
             }
-            user.comparePassword((email, password), (err, isMatch) => {
+            comparePassword(email, password, (err, isMatch) => {
                 if (!isMatch)
                     return res
                         .status(401)
@@ -36,3 +36,13 @@ module.exports = {
         });
     }
 };
+
+function comparePassword(email, password, callback) {
+    UserRegister.findOne({ email, password }, err => {
+        if (err) {
+            callback(null, false);
+        } else {
+            callback(null, true);
+        }
+    });
+}
