@@ -1,5 +1,4 @@
-var registerController = require('../controllers/register');
-var loginController = require('../controllers/login');
+var searchController = require('../controllers/search');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
 
@@ -13,6 +12,5 @@ module.exports = app => {
     );
     app.use(validator());
 
-    app.post('/login', loginController.logIn);
-    app.post('/register', registerController.register);
+    app.post('/search', searchController.searchAll);
 };
