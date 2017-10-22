@@ -7,8 +7,7 @@ module.exports = {
             {
                 $or: [
                     { firstName: { $regex: new RegExp(userQuery, 'i') } },
-                    { email: { $regex: new RegExp(userQuery) } },
-                    { firstName: { $regex: new RegExp(userQuery, 'i') } },
+                    { lastName: { $regex: new RegExp(userQuery, 'i') } },
                     { email: { $regex: new RegExp(userQuery, 'i') } }
                 ]
             },
