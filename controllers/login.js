@@ -1,9 +1,9 @@
-var UserRegister = require('../models/register');
+const UserRegister = require('../models/manual_register');
 
 module.exports = {
     logIn(req, res) {
-        var email = req.body.email;
-        var password = req.body.password;
+        const email = req.body.email;
+        const password = req.body.password;
 
         req.assert('email', 'Email is not valid').isEmail();
         req.assert('email', 'Email cannot be blank').notEmpty();
@@ -11,7 +11,7 @@ module.exports = {
         req.sanitize('email').normalizeEmail({ remove_dots: false });
 
         //Check for validation Errors
-        var errors = req.validationErrors();
+        const errors = req.validationErrors();
         if (errors) return res.status(400).send(errors);
 
         UserRegister.findOne({ email }, (err, user) => {

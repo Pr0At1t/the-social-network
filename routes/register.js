@@ -1,5 +1,6 @@
 var registerController = require('../controllers/register');
 var loginController = require('../controllers/login');
+var googleLoginController = require('../controllers/google_login');
 var bodyParser = require('body-parser');
 var validator = require('express-validator');
 
@@ -15,4 +16,5 @@ module.exports = app => {
 
     app.post('/login', loginController.logIn);
     app.post('/register', registerController.register);
+    app.post('/googleLogin', googleLoginController.login);
 };
