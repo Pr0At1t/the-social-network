@@ -42,10 +42,10 @@ module.exports = {
             }).save(err => {
                 if (err) {
                     console.log(err);
-                    return res.status(500).send();
+                    res.status(500).send();
                 }
             });
-            return res.status(200).send();
+            res.status(200).send(true);
         });
     }
 };
