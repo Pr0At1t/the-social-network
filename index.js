@@ -4,6 +4,11 @@ const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const keys = require('./config/keys');
+const bodyParser = require('body-parser');
+const morgan = require('morgan');
+
+var jwt = require('jsonwebtoken');
+
 require('./models/User');
 require('./services/passport');
 
