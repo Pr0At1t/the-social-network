@@ -1,4 +1,4 @@
-var UserRegister = require('../models/register');
+var UserRegister = require('../models/manual_register');
 
 module.exports = {
     register(req, res) {

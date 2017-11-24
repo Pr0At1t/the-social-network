@@ -1,17 +1,15 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
 
-var registerSchema = new Schema(
+const registerSchema = new Schema(
     {
         email: { type: String, required: true },
         password: { type: String, required: true },
         firstName: { type: String },
         lastName: { type: String },
         dob: { type: String },
-        country: { type: String }
-        //   isVerified: { type: Boolean, default: false },
-        //   passwordResetToken: String,
-        //   passwordResetExpires: Date
+        country: { type: String },
+        localID: { type: String, required: true }
     },
     { collection: 'registeredUser' }
 );
