@@ -20,26 +20,35 @@ module.exports = {
                 return res.status(500).send();
             }
             if (!user) {
-                return res.status(404).send({
-                    msg: `The email address ${email} is not associated with any account. Double-check your email address and try again`
-                });
+                return res.status(404).send([
+                    {
+                        msg: `The email address ${email} is not associated with any account. Double-check your email address and try again`,
+                        param: 'email'
+                    }
+                ]);
             }
             comparePassword(email, password, (err, isMatch) => {
                 if (!isMatch)
-                    return res
-                        .status(401)
-                        .send({ msg: 'Invalid email or password' });
+                    return res.status(401).send([
+                        {
+                            msg: 'Invalid email or password',
+                            param: 'password'
+                        }
+                    ]);
 
                 //Successful Login
-                res.json(user);
+                // TODO: Need to send back cookies here
+                res.json(true);
             });
         });
     }
 };
 
 function comparePassword(email, password, callback) {
-    UserRegister.findOne({ email, password }, err => {
+    UserRegister.findOne({ email, password }, (err, user) => {
         if (err) {
+            callback(null, false);
+        } else if (user === null) {
             callback(null, false);
         } else {
             callback(null, true);
