@@ -1,4 +1,6 @@
-const UserRegister = require('../models/manual_register');
+const UserRegister = require('../models/manual_register'),
+    jwt = require('jsonwebtoken'),
+    keys = require('../config/keys');
 
 module.exports = {
     logIn(req, res) {
@@ -27,7 +29,7 @@ module.exports = {
                     }
                 ]);
             }
-            comparePassword(email, password, (err, isMatch) => {
+            user.comparePassword(password, (err, isMatch) => {
                 if (!isMatch)
                     return res.status(401).send([
                         {
@@ -36,22 +38,12 @@ module.exports = {
                         }
                     ]);
 
+                var token = jwt.sign(user.toJSON(), keys.auth.secret, {
+                    expiresIn: 10000 // in seconds
+                });
                 //Successful Login
-                // TODO: Need to send back cookies here
-                res.json(true);
+                res.json({ success: true, token: 'JWT ' + token });
             });
         });
     }
 };
-
-function comparePassword(email, password, callback) {
-    UserRegister.findOne({ email, password }, (err, user) => {
-        if (err) {
-            callback(null, false);
-        } else if (user === null) {
-            callback(null, false);
-        } else {
-            callback(null, true);
-        }
-    });
-}
