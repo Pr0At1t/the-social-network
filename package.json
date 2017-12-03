@@ -9,8 +9,7 @@
     },
     "scripts": {
         "start": "node server.js",
-        "dev":
-            "node_modules/nodemon/bin/nodemon.js -- node_modules/babel-cli/bin/babel-node.js index.js",
+        "dev": "node_modules/nodemon/bin/nodemon.js -- node_modules/babel-cli/bin/babel-node.js index.js",
         "test": "jest"
     },
     "author": "",
@@ -31,7 +30,8 @@
         "nodemailer": "^4.2.0",
         "passport": "^0.4.0",
         "passport-google-oauth20": "^1.0.0",
-        "passport-jwt": "^3.0.1"
+        "passport-jwt": "^3.0.1",
+        "passport-local": "^1.0.0"
     },
     "devDependencies": {
         "babel": "^6.23.0",

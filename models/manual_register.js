@@ -18,8 +18,9 @@ const registerSchema = new Schema(
 // Saves the user's password as hashed
 registerSchema.pre('save', function(next) {
     var user = this;
+    const SALT_FACTOR = 10;
     if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
             if (err) {
                 return next(err);
             }
