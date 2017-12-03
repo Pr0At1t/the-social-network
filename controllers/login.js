@@ -1,9 +1,9 @@
-var UserRegister = require('../models/register');
+const UserRegister = require('../models/manual_register');
 
 module.exports = {
     logIn(req, res) {
-        var email = req.body.email;
-        var password = req.body.password;
+        const email = req.body.email;
+        const password = req.body.password;
 
         req.assert('email', 'Email is not valid').isEmail();
         req.assert('email', 'Email cannot be blank').notEmpty();
@@ -11,7 +11,7 @@ module.exports = {
         req.sanitize('email').normalizeEmail({ remove_dots: false });
 
         //Check for validation Errors
-        var errors = req.validationErrors();
+        const errors = req.validationErrors();
         if (errors) return res.status(400).send(errors);
 
         UserRegister.findOne({ email }, (err, user) => {
@@ -20,29 +20,26 @@ module.exports = {
                 return res.status(500).send();
             }
             if (!user) {
-                return res.status(404).send({
-                    msg: `The email address ${email} is not associated with any account. Double-check your email address and try again`
-                });
+                return res.status(404).send([
+                    {
+                        msg: `The email address ${email} is not associated with any account. Double-check your email address and try again`,
+                        param: 'email'
+                    }
+                ]);
             }
-            comparePassword(email, password, (err, isMatch) => {
+            user.comparePassword(password, (err, isMatch) => {
                 if (!isMatch)
-                    return res
-                        .status(401)
-                        .send({ msg: 'Invalid email or password' });
+                    return res.status(401).send([
+                        {
+                            msg: 'Invalid email or password',
+                            param: 'password'
+                        }
+                    ]);
 
                 //Successful Login
-                res.json(user);
+                // TODO: Need to send back cookies here
+                res.json(true);
             });
         });
     }
 };
-
-function comparePassword(email, password, callback) {
-    UserRegister.findOne({ email, password }, err => {
-        if (err) {
-            callback(null, false);
-        } else {
-            callback(null, true);
-        }
-    });
-}

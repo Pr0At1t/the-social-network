@@ -1,4 +1,4 @@
-var UserRegister = require('../models/register');
+var UserRegister = require('../models/manual_register');
 
 module.exports = {
     register(req, res) {
@@ -29,7 +29,8 @@ module.exports = {
             if (user)
                 return res.status(400).send({
                     msg:
-                        'The email address you have entered is already associated with another account.'
+                        'The email address you have entered is already associated with another account.',
+                    param: 'email'
                 });
 
             user = new UserRegister({

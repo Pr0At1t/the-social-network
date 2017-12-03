@@ -1,8 +1,8 @@
-var UserRegister = require('../models/register');
+var UserRegister = require('../models/manual_register');
 
 module.exports = {
     searchAll(req, res) {
-        const userQuery = req.body.query;
+        const userQuery = req.body.searchText;
         UserRegister.find(
             {
                 $or: [

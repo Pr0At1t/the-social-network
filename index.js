@@ -2,15 +2,15 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
-const passport = require('passport');
+
 const keys = require('./config/keys');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
-var jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 require('./models/User');
-require('./services/passport');
+// require('./services/passport');
 
 mongoose.connect(keys.db.mongoURI);
 
@@ -22,10 +22,7 @@ app.use(
         keys: [keys.cookie.key]
     })
 );
-app.use(passport.initialize());
-app.use(passport.session());
 
-require('./routes/authRoutes')(app);
 require('./routes/register')(app);
 require('./routes/search')(app);
 
